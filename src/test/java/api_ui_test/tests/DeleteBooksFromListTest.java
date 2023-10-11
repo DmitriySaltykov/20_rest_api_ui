@@ -6,15 +6,11 @@ import api_ui_test.models.IsbnModel;
 import api_ui_test.models.LoginResponseModel;
 import api_ui_test.pages.ProfilePage;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Cookie;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static api_ui_test.tests.TestData.credentials;
 
 public class DeleteBooksFromListTest extends TestBase {
