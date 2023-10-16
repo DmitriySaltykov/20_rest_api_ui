@@ -51,8 +51,7 @@ public class TestBase {
     void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
-    @BeforeEach
-              void deleteAllBooks(LoginResponseModel loginResponse) {
+    void deleteAllBooks(LoginResponseModel loginResponse) {
             given(baseRequestSpec)
                     .header("Authorization", "Bearer " + loginResponse.getToken())
                     .queryParam("UserId", loginResponse.getUserId())
