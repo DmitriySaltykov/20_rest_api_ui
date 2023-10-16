@@ -51,9 +51,8 @@ public class TestBase {
     void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
-
-        @Step("Удаление всех книг из профиля")
-         void deleteAllBooks(LoginResponseModel loginResponse) {
+    @BeforeEach
+              void deleteAllBooks(LoginResponseModel loginResponse) {
             given(baseRequestSpec)
                     .header("Authorization", "Bearer " + loginResponse.getToken())
                     .queryParam("UserId", loginResponse.getUserId())
