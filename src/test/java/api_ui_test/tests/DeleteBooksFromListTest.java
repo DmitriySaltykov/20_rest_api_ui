@@ -33,7 +33,7 @@ public class DeleteBooksFromListTest extends TestBase {
         deleteBookModel.setIsbn("9781449325862");
         deleteBookModel.setUserId(loginResponse.getUserId());
 
-        booksApi.deleteAllBooks(loginResponse);
+
         booksApi.addBook(loginResponse, booksList);
         booksApi.deleteOneBook(loginResponse, deleteBookModel);
 

@@ -10,16 +10,6 @@ import static io.restassured.RestAssured.given;
 
 
 public class BooksApi {
-    @Step("Удаление всех книг из профиля")
-    public void deleteAllBooks(LoginResponseModel loginResponse) {
-        given(baseRequestSpec)
-                .header("Authorization", "Bearer " + loginResponse.getToken())
-                .queryParam("UserId", loginResponse.getUserId())
-                .when()
-                .delete("/BookStore/v1/Books")
-                .then()
-                .spec(deleteBook204ResponseSpec);
-    }
 
     @Step("Добавление книг")
     public void addBook(LoginResponseModel loginResponse, AddBooksListModel booksList) {

@@ -2,10 +2,12 @@ package api_ui_test.tests;
 
 import api_ui_test.api.AuthorizationApi;
 import api_ui_test.api.BooksApi;
+import api_ui_test.models.LoginResponseModel;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 
 import helpers.Attach;
+import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
+
+import static api_ui_test.specs.BooksSpec.baseRequestSpec;
+import static api_ui_test.specs.BooksSpec.deleteBook204ResponseSpec;
+import static io.restassured.RestAssured.given;
 
 public class TestBase {
     AuthorizationApi authorizationApi = new AuthorizationApi();
@@ -37,6 +43,8 @@ public class TestBase {
         ));
 
         Configuration.browserCapabilities = capabilities;
+
+
     }
 
     @BeforeEach
@@ -44,12 +52,25 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
-    @AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
+    public class BooksDeleteApi {
+        @Step("Удаление всех книг из профиля")
+        public void deleteAllBooks(LoginResponseModel loginResponse) {
+            given(baseRequestSpec)
+                    .header("Authorization", "Bearer " + loginResponse.getToken())
+                    .queryParam("UserId", loginResponse.getUserId())
+                    .when()
+                    .delete("/BookStore/v1/Books")
+                    .then()
+                    .spec(deleteBook204ResponseSpec);
+        }
 
+        @AfterEach
+        void addAttachments() {
+            Attach.screenshotAs("Last screenshot");
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
+            Attach.addVideo();
+
+        }
     }
 }
