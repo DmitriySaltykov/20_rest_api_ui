@@ -35,12 +35,5 @@ public class BooksSpec extends TestBase {
             .expectStatusCode(204)
             .build();
 
-//    public static ResponseSpecification loginResponse400ErrorSpec = new ResponseSpecBuilder()
-//            .log(STATUS)
-//            .log(BODY)
-//            .expectStatusCode(400)
-//            .build();
-
-
 }
 

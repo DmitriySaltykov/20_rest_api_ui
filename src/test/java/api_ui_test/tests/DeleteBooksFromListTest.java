@@ -15,9 +15,10 @@ import static api_ui_test.tests.TestData.credentials;
 
 public class DeleteBooksFromListTest extends TestBase {
     @Test
-    void addBookToProfileTest() {
+    void checkEmptyProfileTest() {
         LoginResponseModel loginResponse = authorizationApi.login(credentials);
         IsbnModel isbnModel = new IsbnModel();
+
         isbnModel.setIsbn("9781449325862");
         List<IsbnModel> isbnList = new ArrayList<>();
         isbnList.add(isbnModel);
@@ -34,8 +35,10 @@ public class DeleteBooksFromListTest extends TestBase {
         booksApi.addBook(loginResponse, booksList);
         booksApi.deleteOneBook(loginResponse, deleteBookModel);
 
-        ProfilePage.openUserProfileWithCookies(loginResponse.getUserId(), loginResponse.getToken(), loginResponse.getExpires());
-        ProfilePage.checkDisappearBook("see-book-Understanding ECMAScript 6");
+        ProfilePage  profilePage = new ProfilePage();
+        profilePage
+                .openProfilePage()
+                .checkEmptyTable();
     }
 
 }
