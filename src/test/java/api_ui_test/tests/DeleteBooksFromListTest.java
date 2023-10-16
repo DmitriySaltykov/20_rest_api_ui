@@ -5,6 +5,7 @@ import api_ui_test.models.DeleteBookModel;
 import api_ui_test.models.IsbnModel;
 import api_ui_test.models.LoginResponseModel;
 import api_ui_test.pages.ProfilePage;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Test;
 
 
@@ -15,6 +16,7 @@ import static api_ui_test.tests.TestData.credentials;
 
 public class DeleteBooksFromListTest extends TestBase {
     @Test
+    @Step("Проверка отсутствия удаленного товара в профиле")
     void checkEmptyProfileTest() {
         LoginResponseModel loginResponse = authorizationApi.login(credentials);
         IsbnModel isbnModel = new IsbnModel();
