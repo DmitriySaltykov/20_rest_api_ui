@@ -52,9 +52,8 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
-    public class BooksDeleteApi {
         @Step("Удаление всех книг из профиля")
-        public void deleteAllBooks(LoginResponseModel loginResponse) {
+         void deleteAllBooks(LoginResponseModel loginResponse) {
             given(baseRequestSpec)
                     .header("Authorization", "Bearer " + loginResponse.getToken())
                     .queryParam("UserId", loginResponse.getUserId())
@@ -63,8 +62,7 @@ public class TestBase {
                     .then()
                     .spec(deleteBook204ResponseSpec);
         }
-
-        @AfterEach
+            @AfterEach
         void addAttachments() {
             Attach.screenshotAs("Last screenshot");
             Attach.pageSource();
@@ -72,5 +70,5 @@ public class TestBase {
             Attach.addVideo();
 
         }
-    }
+
 }
