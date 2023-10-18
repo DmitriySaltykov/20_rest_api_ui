@@ -37,7 +37,8 @@ public class BooksApi {
 
 
     }
-    @Step ("Удаление всех книг")
+
+    @Step("Удаление всех книг")
     public void deleteAllBooks(LoginResponseModel loginResponse) {
 
         given(baseRequestSpec)

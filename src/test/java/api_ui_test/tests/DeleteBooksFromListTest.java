@@ -6,28 +6,23 @@ import api_ui_test.models.IsbnModel;
 import api_ui_test.models.LoginResponseModel;
 import api_ui_test.pages.ProfilePage;
 import io.qameta.allure.Step;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static api_ui_test.specs.BooksSpec.baseRequestSpec;
-import static api_ui_test.specs.BooksSpec.deleteBook204ResponseSpec;
 import static api_ui_test.tests.TestData.credentials;
-import static io.restassured.RestAssured.given;
 
 
 public class DeleteBooksFromListTest extends TestBase {
     LoginResponseModel loginResponse;
 
 
-
     @Test
     @Step("Проверка отсутствия удаленного товара в профиле")
     void checkEmptyProfileTest() {
-         loginResponse = authorizationApi.login(credentials);
+        loginResponse = authorizationApi.login(credentials);
         IsbnModel isbnModel = new IsbnModel();
 
         isbnModel.setIsbn("9781449325862");
@@ -58,8 +53,6 @@ public class DeleteBooksFromListTest extends TestBase {
         booksApi.deleteAllBooks(loginResponse);
 
     }
-
-
 
 
 }

@@ -18,7 +18,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.Map;
 
 
-
 public class TestBase {
     AuthorizationApi authorizationApi = new AuthorizationApi();
     BooksApi booksApi = new BooksApi();
@@ -49,13 +48,14 @@ public class TestBase {
     void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
-                @AfterEach
-        void addAttachments() {
-            Attach.screenshotAs("Last screenshot");
-            Attach.pageSource();
-            Attach.browserConsoleLogs();
-            Attach.addVideo();
 
-        }
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+
+    }
 
 }
