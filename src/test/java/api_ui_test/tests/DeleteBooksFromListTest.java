@@ -6,19 +6,28 @@ import api_ui_test.models.IsbnModel;
 import api_ui_test.models.LoginResponseModel;
 import api_ui_test.pages.ProfilePage;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static api_ui_test.specs.BooksSpec.baseRequestSpec;
+import static api_ui_test.specs.BooksSpec.deleteBook204ResponseSpec;
 import static api_ui_test.tests.TestData.credentials;
+import static io.restassured.RestAssured.given;
+
 
 public class DeleteBooksFromListTest extends TestBase {
+    LoginResponseModel loginResponse;
+
+
+
     @Test
     @Step("Проверка отсутствия удаленного товара в профиле")
     void checkEmptyProfileTest() {
-        LoginResponseModel loginResponse = authorizationApi.login(credentials);
+         loginResponse = authorizationApi.login(credentials);
         IsbnModel isbnModel = new IsbnModel();
 
         isbnModel.setIsbn("9781449325862");
@@ -37,10 +46,28 @@ public class DeleteBooksFromListTest extends TestBase {
         booksApi.addBook(loginResponse, booksList);
         booksApi.deleteOneBook(loginResponse, deleteBookModel);
 
-        ProfilePage  profilePage = new ProfilePage();
+        ProfilePage profilePage = new ProfilePage();
         profilePage
                 .openProfilePage()
                 .checkEmptyTable();
     }
+
+    @AfterEach
+    void cleanUp() {
+        deleteAllBooks(loginResponse);
+
+    }
+
+     void deleteAllBooks(LoginResponseModel loginResponse) {
+
+        given(baseRequestSpec)
+                .header("Authorization", "Bearer " + loginResponse.getToken())
+                .queryParam("UserId", loginResponse.getUserId())
+                .when()
+                .delete("/BookStore/v1/Books")
+                .then()
+                .spec(deleteBook204ResponseSpec);
+    }
+
 
 }
