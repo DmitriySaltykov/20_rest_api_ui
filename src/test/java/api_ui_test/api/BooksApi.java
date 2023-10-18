@@ -37,6 +37,16 @@ public class BooksApi {
 
 
     }
+    @Step ("Удаление всех книг")
+    public void deleteAllBooks(LoginResponseModel loginResponse) {
 
+        given(baseRequestSpec)
+                .header("Authorization", "Bearer " + loginResponse.getToken())
+                .queryParam("UserId", loginResponse.getUserId())
+                .when()
+                .delete("/BookStore/v1/Books")
+                .then()
+                .spec(deleteBook204ResponseSpec);
+    }
 
 }

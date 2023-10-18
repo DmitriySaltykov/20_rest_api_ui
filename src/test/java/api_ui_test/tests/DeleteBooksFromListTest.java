@@ -46,6 +46,7 @@ public class DeleteBooksFromListTest extends TestBase {
         booksApi.addBook(loginResponse, booksList);
         booksApi.deleteOneBook(loginResponse, deleteBookModel);
 
+
         ProfilePage profilePage = new ProfilePage();
         profilePage
                 .openProfilePage()
